@@ -1,0 +1,5 @@
+datarag_assets_create_query = (f"""
+  CREATE TABLE IF NOT EXISTS datarag_assets (ASSET_TYPE STRING, ASSET_NAME STRING, STATUS CHAR(1), UPDATED_BY STRING, CREATED_TS TIMESTAMP, UPDATED_TS TIMESTAMP) 
+  USING delta
+  LOCATION '{TARGET_PATH}/datarag_assets/'
+""")
