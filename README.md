@@ -1,5 +1,5 @@
 # UNIQUAL
-One tool for all
+The ONLY dataquality tool for data enginners
 
 ## Setup
 python -m venv venv
