@@ -1,4 +1,5 @@
-from utils.common_imports import *
+# from utils.common_imports import *
+import streamlit as st
 st.set_page_config(layout="wide")
 
 st.title("UNIQUAL")

@@ -1,4 +1,5 @@
 from utils.common_imports import *
+from utils.duckdb_utils import *
 S3_PATHS = os.getenv("S3_PATHS").split(',')
 
 def read_s3_path(path,file_format):
@@ -18,6 +19,21 @@ def read_s3_path(path,file_format):
             df = pl.read_delta(path,storage_options=storage_options)
         else:
             raise Exception("Invalid file format")
+        return df
+    except Exception as e:
+        raise Exception(f"Error occurred while reading path: {e}")
+    
+def read_s3_duckdb(path,file_format):
+    try:
+        conn = create_duckdb_connection_with_s3()
+        if path.endswith('/'):
+            path = path[:-1]
+        if file_format=="csv":
+            query = f"select * from read_csv('{path}/*.csv') limit 100"
+        elif file_format=="parquet":
+            query = f"select * from read_parquet('{path}/*.parquet') limit 100"
+        st.write("Executing query: "+query)
+        df = conn.sql(query).to_df()
         return df
     except Exception as e:
         raise Exception(f"Error occurred while reading path: {e}")
