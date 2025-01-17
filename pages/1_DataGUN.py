@@ -12,5 +12,12 @@ s3_path = st.selectbox("Or select from dropdown", S3_PATHS, key=s3_path_input) i
 
 if st.button("Preview Data"):
     test_path="s3://tgt-southdms/input/hugging_face_data/gitrenum/*.csv"
-    df = read_s3_path(s3_path, file_format)
-    st.dataframe(df)
+    if file_format == "csv":
+        df = read_s3_csv_duckdb(s3_path)
+        cols = df.columns.to_list()
+        st.dataframe(df,hide_index=True)
+        st.write("Columns in the dataset")
+        st.json(cols)
+    if file_format == "delta":
+        df = read_s3_path(s3_path, file_format)
+        st.dataframe(df,hide_index=True)

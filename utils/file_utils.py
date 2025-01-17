@@ -1,4 +1,5 @@
 from utils.common_imports import *
+from utils.duckdb_utils import *
 S3_PATHS = os.getenv("S3_PATHS").split(',')
 
 def read_s3_path(path,file_format):
@@ -18,6 +19,14 @@ def read_s3_path(path,file_format):
             df = pl.read_delta(path,storage_options=storage_options)
         else:
             raise Exception("Invalid file format")
+        return df
+    except Exception as e:
+        raise Exception(f"Error occurred while reading path: {e}")
+    
+def read_s3_csv_duckdb(path):
+    try:
+        conn = create_duckdb_connection_with_s3()
+        df = conn.sql(f"select * from read_csv('{path}/*.csv')").to_df()
         return df
     except Exception as e:
         raise Exception(f"Error occurred while reading path: {e}")
