@@ -3,3 +3,5 @@ streamlit
 polars
 python-dotenv
 deltalake
+fsspec
+s3fs

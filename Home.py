@@ -1,7 +1,9 @@
 from utils.common_imports import *
+st.set_page_config(layout="wide")
 
 st.title("UNIQUAL")
 st.subheader("Copilot for data enginners")
+
 
 st.write("Choose a page to get started")
 
