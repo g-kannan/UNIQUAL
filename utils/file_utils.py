@@ -1,9 +1,5 @@
-import os
-from dotenv import load_dotenv
-import polars as pl
-import duckdb
-
-load_dotenv() 
+from utils.common_imports import *
+S3_PATHS = os.getenv("S3_PATHS").split(',')
 
 def read_s3_path(path,file_format):
     try:
