@@ -12,5 +12,5 @@ s3_path = st.selectbox("Or select from dropdown", S3_PATHS, key=s3_path_input) i
 
 if st.button("Preview Data"):
     test_path="s3://tgt-southdms/input/hugging_face_data/gitrenum/*.csv"
-    df = read_s3_path(test_path, file_format)
+    df = read_s3_path(s3_path, file_format)
     st.dataframe(df)
