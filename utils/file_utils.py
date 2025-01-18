@@ -1,6 +1,9 @@
 from utils.common_imports import *
+from dotenv import load_dotenv
+load_dotenv()
 from utils.duckdb_utils import *
 S3_PATHS = os.getenv("S3_PATHS").split(',')
+print(S3_PATHS)
 
 def read_s3_path(path,file_format):
     try:
@@ -22,7 +25,7 @@ def read_s3_path(path,file_format):
         return df
     except Exception as e:
         raise Exception(f"Error occurred while reading path: {e}")
-    
+
 def read_s3_duckdb(path,file_format):
     try:
         conn = create_duckdb_connection_with_s3()
@@ -37,3 +40,4 @@ def read_s3_duckdb(path,file_format):
         return df
     except Exception as e:
         raise Exception(f"Error occurred while reading path: {e}")
+
