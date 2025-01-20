@@ -5,13 +5,14 @@ from utils.duckdb_utils import *
 S3_PATHS = os.getenv("S3_PATHS").split(',')
 print(S3_PATHS)
 
-def read_s3_path(path,file_format):
-    try:
-        storage_options = {
+storage_options = {
             "AWS_ACCESS_KEY_ID":  os.getenv("AWS_ACCESS_KEY_ID"),
             "AWS_SECRET_ACCESS_KEY": os.getenv("AWS_SECRET_ACCESS_KEY"),
             "AWS_REGION": os.getenv("AWS_REGION"),
         }
+
+def read_s3_path(path,file_format):
+    try:
         if file_format == "parquet":
             df = pl.read_parquet(path,storage_options=storage_options)
         elif file_format == "csv":
@@ -40,4 +41,20 @@ def read_s3_duckdb(path,file_format):
         return df
     except Exception as e:
         raise Exception(f"Error occurred while reading path: {e}")
+
+def save_s3_path(path,df,file_format):
+    try:
+        if file_format == "parquet":
+            df.write_parquet(path,storage_options=storage_options,mode="overwrite")
+        elif file_format == "csv":
+            df.write_csv(path,storage_options=storage_options,mode="overwrite")
+        elif file_format == "json":
+            df.write_json(path,storage_options=storage_options,mode="overwrite")
+        elif file_format == "delta":
+            df.write_delta(path,storage_options=storage_options,mode="overwrite")
+        else:
+            raise Exception("Invalid file format")
+        return df
+    except Exception as e:
+        raise Exception(f"Error occurred while writing to path: {e}")
 
