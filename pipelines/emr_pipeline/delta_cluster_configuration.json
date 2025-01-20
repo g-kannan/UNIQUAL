@@ -1,0 +1,16 @@
+[
+  {
+    "Classification": "delta-defaults",
+    "Properties": {
+      "delta.enabled": "true"
+    }
+  },
+  {
+    "Classification": "spark-defaults",
+    "Properties": {
+      "spark.jars.packages": "io.delta:delta-spark_2.12:3.3.0",
+      "spark.sql.catalog.spark_catalog": "org.apache.spark.sql.delta.catalog.DeltaCatalog",
+      "spark.sql.extensions": "io.delta.sql.DeltaSparkSessionExtension"
+    }
+  }
+]
