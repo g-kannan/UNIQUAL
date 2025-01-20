@@ -1,10 +1,10 @@
 ## Job parameters
 
-| Key | Value |
-| --- | --- |
-| `--additional-python-modules` | `cuallee` |
-| `--datalake-formats` | `delta`|
-| `--datarag_path` | `bucketname/path_to_datarag/` |
+| Key | Value | Description |
+| --- | --- | --- |
+| `--additional-python-modules` | `cuallee==0.7.1` | Required Python package for data quality checks |
+| `--datalake-formats` | `delta` | Enables Delta Lake format support |
+| `--datarag_path` | `<your-bucket-name>/path_to_datarag/` | S3 path for DataRAG storage (replace placeholder) |
 
 
 ## Spark Session
