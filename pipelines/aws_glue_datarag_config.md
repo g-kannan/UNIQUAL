@@ -2,7 +2,7 @@
 
 | Key | Value | Description |
 | --- | --- | --- |
-| `--additional-python-modules` | `cuallee==0.7.1` | Required Python package for data quality checks |
+| `--additional-python-modules` | `cuallee==0.15.2` | Required Python package for data quality checks |
 | `--datalake-formats` | `delta` | Enables Delta Lake format support |
 | `--datarag_path` | `<your-bucket-name>/path_to_datarag/` | S3 path for DataRAG storage (replace placeholder) |
 
