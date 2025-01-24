@@ -41,7 +41,7 @@ jobs:
         filter_mode: diff_context
 
         # Whether to fail the check if formatting issues are found
-        fail_on_error: true
+        fail_level: info
 
         # Additional Black arguments
         black_args: "--check --diff"
