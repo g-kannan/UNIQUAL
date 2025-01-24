@@ -1,0 +1,50 @@
+name: Black Code Formatting Check
+
+# Controls when the workflow will run
+on:
+  # Trigger on push and pull requests to main branches
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+# The workflow jobs
+jobs:
+  formatting:
+    name: Code Formatting Check
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the repository code
+    - uses: actions/checkout@v4
+      with:
+        # Fetch all history for all branches and tags
+        fetch-depth: 0
+
+    # Run Black formatter with Reviewdog
+    - name: Run Black with Reviewdog
+      uses: reviewdog/action-black@v3
+      with:
+        # GitHub token for authentication
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+        # Reviewdog reporter type
+        # Options: github-pr-check, github-pr-review, github-check
+        reporter: github-pr-review
+
+        # Level of annotations for reviewdog
+        # Options: info, warning, error
+        level: warning
+
+#        # Filter mode for reviewdog
+#        # Options: added, diff_context, file, nofilter
+#        filter_mode: diff_context
+#
+#        # Whether to fail the check if formatting issues are found
+#        fail_level: info
+#
+#        # Additional Black arguments
+#        black_args: "--check --diff"
+#
+#        # Optional: Specify Python version
+#        python_version: "3.9"
