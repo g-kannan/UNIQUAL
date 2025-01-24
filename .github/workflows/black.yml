@@ -36,15 +36,15 @@ jobs:
         # Options: info, warning, error
         level: warning
 
-        # Filter mode for reviewdog
-        # Options: added, diff_context, file, nofilter
-        filter_mode: diff_context
-
-        # Whether to fail the check if formatting issues are found
-        fail_level: info
-
-        # Additional Black arguments
-        black_args: "--check --diff"
-
-        # Optional: Specify Python version
-        python_version: "3.9"
+#        # Filter mode for reviewdog
+#        # Options: added, diff_context, file, nofilter
+#        filter_mode: diff_context
+#
+#        # Whether to fail the check if formatting issues are found
+#        fail_level: info
+#
+#        # Additional Black arguments
+#        black_args: "--check --diff"
+#
+#        # Optional: Specify Python version
+#        python_version: "3.9"
