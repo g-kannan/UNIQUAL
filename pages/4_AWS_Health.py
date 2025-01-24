@@ -33,6 +33,27 @@ download_format = st.radio("Select Download Format:", ["CSV", "Parquet"], horizo
 
 # Function to generate download data
 def generate_download_data(dataframe, file_format):
+    """
+    Convert a pandas DataFrame to a downloadable file in the specified format.
+    
+    Parameters:
+        dataframe (pandas.DataFrame): The DataFrame to be converted and downloaded
+        file_format (str): The desired output file format, either "CSV" or "Parquet"
+    
+    Returns:
+        tuple: A tuple containing:
+            - Encoded file content (bytes)
+            - MIME type of the file (str)
+    
+    Raises:
+        ValueError: If an unsupported file format is specified
+    
+    Notes:
+        - For CSV, the file is encoded in UTF-8 with no index column
+        - For Parquet, the file is written to a BytesIO buffer with no index column
+        - Supports CSV and Parquet formats
+        - ORC format is currently commented out
+    """
     if file_format == "CSV":
         return dataframe.to_csv(index=False).encode("utf-8"), "text/csv"
     elif file_format == "Parquet":
