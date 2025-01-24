@@ -85,3 +85,13 @@ if st.button("Fetch Events and Notify"):
         st.success("Notifications sent for all scheduledChange events!")
     except ValueError as e:
         st.error(str(e))
+
+bucket_name = st.text_input("Enter S3 bucket name:")
+prefix = st.text_input("Enter S3 prefix (folder path):")
+
+if st.button("Send Events to S3"):
+    try:
+        save_df_to_s3(df, bucket_name, prefix)
+        st.success(f"DataFrame saved to S3 as both CSV and Parquet files in s3://{bucket_name}/{prefix}")
+    except ValueError as e:
+        st.error(str(e))
