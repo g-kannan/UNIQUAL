@@ -1,37 +1,50 @@
-name: Black Code Formatter
+name: Black Code Formatting Check
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push events but only for the main branch
+  # Trigger on push and pull requests to main branches
   push:
     branches: [ main, master ]
-  # Also trigger on pull requests to these branches
   pull_request:
     branches: [ main, master ]
 
-# The actual jobs that will run
+# The workflow jobs
 jobs:
   formatting:
-    # The type of runner that the job will run on
+    name: Code Formatting Check
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed
     steps:
     # Checkout the repository code
     - uses: actions/checkout@v4
-
-    # Set up Python (choose the version that matches your project)
-    - name: Set up Python
-      uses: actions/setup-python@v3
       with:
-        python-version: '3.9'
+        # Fetch all history for all branches and tags
+        fetch-depth: 0
 
-    # Install Black
-    - name: Install Black
-      run: |
-        python -m pip install --upgrade pip
-        pip install black==24.10.0
+    # Run Black formatter with Reviewdog
+    - name: Run Black with Reviewdog
+      uses: reviewdog/action-black@v3
+      with:
+        # GitHub token for authentication
+        github_token: ${{ secrets.GITHUB_TOKEN }}
 
-    # Run Black and check formatting
-    - name: Run Black
-      run: black --check .
+        # Reviewdog reporter type
+        # Options: github-pr-check, github-pr-review, github-check
+        reporter: github-pr-review
+
+        # Level of annotations for reviewdog
+        # Options: info, warning, error
+        level: warning
+
+        # Filter mode for reviewdog
+        # Options: added, diff_context, file, nofilter
+        filter_mode: diff_context
+
+        # Whether to fail the check if formatting issues are found
+        fail_on_error: true
+
+        # Additional Black arguments
+        black_args: "--check --diff"
+
+        # Optional: Specify Python version
+        python_version: "3.9"
