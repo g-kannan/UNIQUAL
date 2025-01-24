@@ -4,7 +4,7 @@ import pandas as pd
 import io
 
 # TODO: i) Saving File(s) to parquet/ORC [Done].
-#       ii) Sending SES Alerts to interested parties.
+#       ii) Sending SES Alerts to interested parties [Done].
 #       iii) Adding option to send the report to S3.
 #       iv) Add functionality of seeing all used services in the account.
 
@@ -75,3 +75,13 @@ elif option == "Filter Data and Download":
         file_name=f"aws_events_filtered.{download_format.lower()}",
         mime=mime_type,
     )
+
+sender_email = st.text_input("Sender Email (Verified in SES)")
+recipient_email = st.text_input("Recipient Email")
+
+if st.button("Fetch Events and Notify"):
+    try:
+        get_all_events_and_notify(df, sender_email, recipient_email)
+        st.success("Notifications sent for all scheduledChange events!")
+    except ValueError as e:
+        st.error(str(e))
