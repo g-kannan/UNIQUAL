@@ -1,0 +1,41 @@
+name: Black Code Formatter
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push events but only for the main branch
+  push:
+    branches: [ main, master ]
+  # Also trigger on pull requests to these branches
+  pull_request:
+    branches: [ main, master ]
+
+# The actual jobs that will run
+jobs:
+  formatting:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed
+    steps:
+    # Checkout the repository code
+    - uses: actions/checkout@v3
+
+    # Set up Python (choose the version that matches your project)
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.9'
+
+    # Install Black
+    - name: Install Black
+      run: |
+        python -m pip install --upgrade pip
+        pip install black
+
+    # Run Black and check formatting
+    - name: Run Black
+      run: black --check .
+
+    # Optional: Automatically fix formatting if needed
+    - name: Fix formatting with Black
+      run: black .
